@@ -42,7 +42,8 @@ class Tags extends PureComponent {
 
     return (
       <ul className="tag-list">
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+        {/* {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)} */}
+        {tags.length} item(s) selected
         <li className="tag-item">{lastItem}</li>
       </ul>
     )
