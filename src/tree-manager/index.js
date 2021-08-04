@@ -254,7 +254,7 @@ class TreeManager {
     return nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
       if (node.checked && !this.hierarchical) {
         // Parent node, so no need to walk children
-        nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
+        // nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
       }
       return node.checked
     })
