@@ -34,7 +34,7 @@ class Tags extends PureComponent {
     disabled: PropTypes.bool,
     texts: PropTypes.object,
     children: PropTypes.node,
-    tagMode: PropTypes.tagMode,
+    tagMode: PropTypes.string,
   }
 
   render() {

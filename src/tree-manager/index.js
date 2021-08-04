@@ -5,12 +5,13 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, checkboxMode }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
     this.hierarchical = mode === 'hierarchical'
     this.searchPredicate = searchPredicate
+    this.checkboxMode = checkboxMode
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: this.simpleSelect,
@@ -252,9 +253,9 @@ class TreeManager {
     }
 
     return nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
-      if (node.checked && !this.hierarchical) {
+      if (node.checked && !this.hierarchical && this.checkboxMode === 'parent') {
         // Parent node, so no need to walk children
-        // nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
+        nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
       }
       return node.checked
     })
