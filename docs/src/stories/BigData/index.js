@@ -40,6 +40,7 @@ const BigData = () => (
     onChange={onChange}
     onAction={onAction}
     onNodeToggle={onNodeToggle}
+    inlineSearchInput="true"
     tagMode="single"
     checkboxMode="both"/></div>)
 
