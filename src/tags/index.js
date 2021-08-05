@@ -46,7 +46,7 @@ class Tags extends PureComponent {
     if (tagMode === 'multiple') {
       tagsStr = getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)
     } else {
-      tagsStr = `${tags.length} item(s) selected`
+      tagsStr = `${(tags || []).length} item(s) selected`
     }
     return (
       <ul className="tag-list">

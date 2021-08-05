@@ -11,7 +11,7 @@ class TreeManager {
     this.radioSelect = mode === 'radioSelect'
     this.hierarchical = mode === 'hierarchical'
     this.searchPredicate = searchPredicate
-    this.checkboxMode = checkboxMode
+    this.checkboxMode = checkboxMode || 'parent'
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: this.simpleSelect,
