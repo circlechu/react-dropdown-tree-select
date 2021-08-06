@@ -55,6 +55,7 @@ class TreeNode extends PureComponent {
     title: PropTypes.string,
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
+    text: PropTypes.string,
     checked: PropTypes.bool,
     expanded: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -70,6 +71,8 @@ class TreeNode extends PureComponent {
     showPartiallySelected: PropTypes.bool,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
+    dataTextField: PropTypes.string, 
+    dataValueField: PropTypes.string,
   }
 
   getAriaAttributes = () => {
@@ -98,6 +101,7 @@ class TreeNode extends PureComponent {
       expanded,
       title,
       label,
+      text,
       partial,
       checked,
       value,
@@ -110,6 +114,8 @@ class TreeNode extends PureComponent {
       showPartiallySelected,
       readOnly,
       clientId,
+      dataTextField,
+      dataValueField,
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
@@ -125,6 +131,7 @@ class TreeNode extends PureComponent {
           id={_id}
           partial={partial}
           checked={checked}
+          text={text}
           value={value}
           disabled={disabled}
           mode={mode}
@@ -132,6 +139,8 @@ class TreeNode extends PureComponent {
           showPartiallySelected={showPartiallySelected}
           readOnly={readOnly}
           clientId={clientId}
+          dataTextField={dataTextField}
+          dataValueField={dataValueField}
         />
         <Actions actions={actions} onAction={onAction} id={_id} readOnly={readOnly} />
       </li>

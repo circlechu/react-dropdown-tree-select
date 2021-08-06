@@ -4,12 +4,12 @@ import Checkbox from './Checkbox'
 import DropdownTreeSelect from '../../../../src'
 
 import './index.css'
-import data from './data.json'
+import data from './data1.json'
 
 class WithOptions extends PureComponent {
   constructor(props) {
     super(props)
-
+    
     this.state = {
       clearSearchOnChange: false,
       keepTreeOnSearch: false,
@@ -22,6 +22,8 @@ class WithOptions extends PureComponent {
       hierarchical: false,
       placeholder: 'Choose...',
       inlineSearchPlaceholder: 'Search...',
+      dataTextField:"lable",
+      dataValueField:"value",
     }
   }
 
@@ -52,6 +54,8 @@ class WithOptions extends PureComponent {
       inlineSearchInput,
       placeholder,
       inlineSearchPlaceholder,
+      dataTextField,
+      dataValueField,
     } = this.state
 
     return (
@@ -137,7 +141,16 @@ class WithOptions extends PureComponent {
           />
           <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
           <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
+          <div style={{ marginTop: '10px' }}>
+            <label htmlFor="dataTextField"> dataTextField </label>
+            <select id="dataTextField" onChange={e=>this.setState({dataTextField:e.target.value})} style={{ width: '200px' }}>
+              <option value="label">label</option>
+              <option value="text">text</option>
+            </select>
+          </div>
+          
         </div>
+          
         <div>
           <DropdownTreeSelect
             id="rdts"
@@ -155,6 +168,8 @@ class WithOptions extends PureComponent {
             inlineSearchInput={inlineSearchInput}
             showDropdown={showDropdown}
             texts={{ label: 'Demo Dropdown', placeholder, inlineSearchPlaceholder }}
+            dataTextField={dataTextField}
+            // dataValueField="value"
           />
         </div>
       </div>

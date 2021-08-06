@@ -37,6 +37,8 @@ class DropdownTreeSelect extends Component {
     showDropdown: PropTypes.oneOf(['default', 'initial', 'always']),
     tagMode: PropTypes.oneOf(['multiple', 'single']),
     checkboxMode: PropTypes.oneOf(['parent', 'both']),
+    dataTextField: PropTypes.string,
+    dataValueField: PropTypes.string,
     className: PropTypes.string,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
@@ -54,16 +56,18 @@ class DropdownTreeSelect extends Component {
   }
 
   static defaultProps = {
-    onAction: () => {},
-    onFocus: () => {},
-    onBlur: () => {},
-    onChange: () => {},
+    onAction: () => { },
+    onFocus: () => { },
+    onBlur: () => { },
+    onChange: () => { },
     texts: {},
     showDropdown: 'default',
     inlineSearchInput: false,
     tabIndex: 0,
     tagMode: 'multiple',
     checkboxMode: 'parent',
+    dataTextField: 'label',
+    dataValueField: 'value',
   }
 
   constructor(props) {
@@ -297,13 +301,13 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, mode, texts, inlineSearchInput, tabIndex, tagMode } = this.props
+    const { disabled, readOnly, mode, texts, inlineSearchInput, tabIndex, tagMode,dataTextField,dataValueField } = this.props
     const { showDropdown, currentFocus, tags } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
-    const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId, tagMode }
-
+    const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId, tagMode,dataTextField,dataValueField }
+    
     const searchInput = (
       <Input
         inputRef={el => {

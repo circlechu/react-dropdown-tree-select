@@ -8,8 +8,11 @@ class NodeLabel extends PureComponent {
     id: PropTypes.string.isRequired,
     actions: PropTypes.array,
     title: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    // label: PropTypes.string.isRequired,
+    label:PropTypes.string,
+    // value: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    text: PropTypes.string,
     checked: PropTypes.bool,
     partial: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -19,6 +22,8 @@ class NodeLabel extends PureComponent {
     onCheckboxChange: PropTypes.func,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
+    dataTextField: PropTypes.string,
+    dataValueField: PropTypes.string
   }
 
   handleCheckboxChange = e => {
@@ -37,7 +42,7 @@ class NodeLabel extends PureComponent {
   }
 
   render() {
-    const { mode, title, label, id, partial, checked } = this.props
+    const { mode, title, label,text, id, partial, checked,dataTextField,dataValueField  } = this.props
     const { value, disabled, showPartiallySelected, readOnly, clientId } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
@@ -51,6 +56,12 @@ class NodeLabel extends PureComponent {
 
     const sharedProps = { id, value, checked, disabled, readOnly, tabIndex: -1 }
     const className = ['checkbox-item', mode === 'simpleSelect' && 'simple-select'].filter(Boolean).join(' ')
+    if(dataTextField!=null){
+      this[dataTextField]
+    }
+
+    let labelText=dataTextField?eval(dataTextField):label
+    
 
     return (
       <label title={title || label} htmlFor={id}>
@@ -65,7 +76,7 @@ class NodeLabel extends PureComponent {
             {...sharedProps}
           />
         )}
-        <span {...nodeLabelProps}>{label}</span>
+        <span {...nodeLabelProps}>{labelText}</span>
       </label>
     )
   }
