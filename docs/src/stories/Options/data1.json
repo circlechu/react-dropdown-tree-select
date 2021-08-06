@@ -1,0 +1,32 @@
+[
+  {
+    "text": "VP Accounting text",
+    "label": "VP Accounting",
+    "value": "1",
+    "tagClassName": "special",
+    "children": [
+      {
+        "text": "iWay  text",
+        "label": "iWay",
+        "value": "2",
+        "children": [
+          {
+            "label": "Universidad de Especialidades del Espíritu Santo",
+            "text": "Universidad de Especialidades del Espíritu Santo  text",
+            "value": "3"
+          },
+          {
+            "text": "Marmara University text",
+            "label": "Marmara University",
+            "value": "4"
+          },
+          {
+            "label": "Baghdad College of Pharmacy",
+            "text": "Baghdad College of Pharmacy text",
+            "value": "5"
+          }
+        ]
+      }
+    ]
+  }
+]
