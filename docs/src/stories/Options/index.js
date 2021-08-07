@@ -22,7 +22,7 @@ class WithOptions extends PureComponent {
       hierarchical: false,
       placeholder: 'Choose...',
       inlineSearchPlaceholder: 'Search...',
-      dataTextField:"lable",
+      dataTextField:"label",
       dataValueField:"value",
     }
   }
