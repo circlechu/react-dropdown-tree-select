@@ -161,7 +161,7 @@ class TreeManager {
     const node = this.getNodeById(id)
     node.checked = checked
     
-    if(this.expandOnCheck && node._children.length>0){
+    if(this.expandOnCheck && Array.isArray(node._children) && node._children.length>0){
       node.expanded=checked
     }
     // TODO: this can probably be combined with the same check in the else block. investigate in a separate release.
