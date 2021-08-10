@@ -256,6 +256,7 @@ class TreeManager {
       if (node.checked && !this.hierarchical && this.checkboxMode === 'parent') {
         // Parent node, so no need to walk children
         nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
+        //nodeVisitor.setNodeCheckedState(node,node.checked)
       }
       return node.checked
     })
