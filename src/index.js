@@ -35,10 +35,6 @@ class DropdownTreeSelect extends Component {
       labelRemove: PropTypes.string,
     }),
     showDropdown: PropTypes.oneOf(['default', 'initial', 'always']),
-    tagMode: PropTypes.oneOf(['multiple', 'single']),
-    checkboxMode: PropTypes.oneOf(['parent', 'both']),
-    dataTextField: PropTypes.string,
-    dataValueField: PropTypes.string,
     className: PropTypes.string,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
@@ -53,6 +49,12 @@ class DropdownTreeSelect extends Component {
     searchPredicate: PropTypes.func,
     inlineSearchInput: PropTypes.bool,
     tabIndex: PropTypes.number,
+    //new props
+    tagMode: PropTypes.oneOf(['multiple', 'single']),
+    checkboxMode: PropTypes.oneOf(['parent', 'both']),
+    expandOnCheck:PropTypes.bool,
+    dataTextField: PropTypes.string,
+    dataValueField: PropTypes.string,
   }
 
   static defaultProps = {
@@ -68,6 +70,7 @@ class DropdownTreeSelect extends Component {
     checkboxMode: 'parent',
     dataTextField: 'label',
     dataValueField: 'value',
+    expandOnCheck:false
   }
 
   constructor(props) {
@@ -79,7 +82,7 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate, checkboxMode }) => {
+  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate, checkboxMode,expandOnCheck }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
@@ -87,6 +90,8 @@ class DropdownTreeSelect extends Component {
       rootPrefixId: this.clientId,
       searchPredicate,
       checkboxMode,
+      expandOnCheck,
+
     })
     this.setState(prevState => {
       const currentFocusNode = prevState.currentFocus && this.treeManager.getNodeById(prevState.currentFocus)

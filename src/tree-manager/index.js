@@ -5,13 +5,14 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, checkboxMode }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, checkboxMode,expandOnCheck }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
     this.hierarchical = mode === 'hierarchical'
     this.searchPredicate = searchPredicate
     this.checkboxMode = checkboxMode || 'parent'
+    this.expandOnCheck= expandOnCheck
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: this.simpleSelect,
@@ -159,7 +160,10 @@ class TreeManager {
 
     const node = this.getNodeById(id)
     node.checked = checked
-
+    
+    if(this.expandOnCheck && Array.isArray(node._children) && node._children.length>0){
+      node.expanded=checked
+    }
     // TODO: this can probably be combined with the same check in the else block. investigate in a separate release.
     if (this.showPartialState) {
       node.partial = false
@@ -236,6 +240,12 @@ class TreeManager {
     if (!node.expanded) this.collapseChildren(node)
     return this.tree
   }
+  
+  expandNode(id){
+    const node = this.getNodeById(id)
+    node.expanded = true
+    return this.tree
+  }
 
   collapseChildren(node) {
     node.expanded = false
@@ -244,6 +254,7 @@ class TreeManager {
     }
   }
 
+  
   get tags() {
     if (this.radioSelect || this.simpleSelect) {
       if (this.currentChecked) {
@@ -256,6 +267,7 @@ class TreeManager {
       if (node.checked && !this.hierarchical && this.checkboxMode === 'parent') {
         // Parent node, so no need to walk children
         nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
+        //nodeVisitor.setNodeCheckedState(node,node.checked)
       }
       return node.checked
     })
