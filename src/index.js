@@ -55,6 +55,7 @@ class DropdownTreeSelect extends Component {
     expandOnCheck:PropTypes.bool,
     dataTextField: PropTypes.string,
     dataValueField: PropTypes.string,
+    dataChildrenField: PropTypes.string,
   }
 
   static defaultProps = {
@@ -70,7 +71,8 @@ class DropdownTreeSelect extends Component {
     checkboxMode: 'parent',
     dataTextField: 'label',
     dataValueField: 'value',
-    expandOnCheck:false
+    expandOnCheck:false,
+    dataChildrenField:'children',
   }
 
   constructor(props) {
@@ -82,7 +84,7 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate, checkboxMode,expandOnCheck }) => {
+  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate, checkboxMode,expandOnCheck,dataChildrenField }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
@@ -91,7 +93,7 @@ class DropdownTreeSelect extends Component {
       searchPredicate,
       checkboxMode,
       expandOnCheck,
-
+      dataChildrenField
     })
     this.setState(prevState => {
       const currentFocusNode = prevState.currentFocus && this.treeManager.getNodeById(prevState.currentFocus)
@@ -306,12 +308,12 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, mode, texts, inlineSearchInput, tabIndex, tagMode,dataTextField,dataValueField } = this.props
+    const { disabled, readOnly, mode, texts, inlineSearchInput, tabIndex, tagMode,dataTextField,dataValueField,dataChildrenField} = this.props
     const { showDropdown, currentFocus, tags } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
-    const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId, tagMode,dataTextField,dataValueField }
+    const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId, tagMode,dataTextField,dataValueField,dataChildrenField }
     
     const searchInput = (
       <Input

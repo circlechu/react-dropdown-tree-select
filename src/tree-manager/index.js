@@ -5,7 +5,7 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, checkboxMode,expandOnCheck }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, checkboxMode,expandOnCheck,dataChildrenField }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
@@ -13,6 +13,7 @@ class TreeManager {
     this.searchPredicate = searchPredicate
     this.checkboxMode = checkboxMode || 'parent'
     this.expandOnCheck= expandOnCheck
+    this.dataChildrenField=dataChildrenField||'children'
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: this.simpleSelect,
@@ -20,6 +21,7 @@ class TreeManager {
       showPartialState: showPartiallySelected,
       hierarchical: this.hierarchical,
       rootPrefixId,
+      dataChildrenField:this.dataChildrenField
     })
     this.tree = list
     this.defaultValues = defaultValues

@@ -171,7 +171,7 @@ const tree = [
  * @param  {[string]} rootPrefixId    The prefix to use when setting root node ids
  * @return {object}                   The flattened list
  */
-function flattenTree({ tree, simple, radio, showPartialState, hierarchical, rootPrefixId }) {
+function flattenTree({ tree, simple, radio, showPartialState, hierarchical, rootPrefixId,dataChildrenField }) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
@@ -182,6 +182,7 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical, root
     showPartialState,
     hierarchical,
     rootPrefixId,
+    dataChildrenField,
   })
 }
 
@@ -213,6 +214,7 @@ function walkNodes({
   showPartialState,
   hierarchical,
   rootPrefixId,
+  dataChildrenField,
   _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null },
 }) {
   const single = simple || radio
@@ -252,10 +254,10 @@ function walkNodes({
     if (!hierarchical || radio) setInitialStateProps(node, parent, !radio)
 
     _rv.list.set(node._id, node)
-    if (!simple && node.children) {
+    if (!simple && node[dataChildrenField]) {
       node._children = []
       walkNodes({
-        nodes: node.children,
+        nodes: node[dataChildrenField],
         parent: node,
         depth: depth + 1,
         radio,
@@ -265,15 +267,15 @@ function walkNodes({
       })
 
       if (showPartialState && !node.checked) {
-        node.partial = getPartialState(node)
+        node.partial = getPartialState(node,dataChildrenField)
 
         // re-check if all children are checked. if so, check thyself
-        if (!single && !isEmpty(node.children) && node.children.every(c => c.checked)) {
+        if (!single && !isEmpty(node[dataChildrenField]) && node[dataChildrenField].every(c => c.checked)) {
           node.checked = true
         }
       }
 
-      node.children = undefined
+      node[dataChildrenField] = undefined
     }
   })
 
