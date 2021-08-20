@@ -5,7 +5,7 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, checkboxMode,expandOnCheck,dataChildrenField }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, checkboxMode,expandOnCheck,dataTextField,dataChildrenField }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
@@ -13,6 +13,7 @@ class TreeManager {
     this.searchPredicate = searchPredicate
     this.checkboxMode = checkboxMode || 'parent'
     this.expandOnCheck= expandOnCheck
+    this.dataTextField=dataTextField ||'label'
     this.dataChildrenField=dataChildrenField||'children'
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
@@ -304,7 +305,9 @@ class TreeManager {
   }
 
   _getAddOnMatch(matches, searchTerm) {
-    let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
+    
+    let isMatch = (node, term) => node[this.dataTextField].toLowerCase().indexOf(term) >= 0
+    // let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
     if (typeof this.searchPredicate === 'function') {
       isMatch = this.searchPredicate
     }

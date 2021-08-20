@@ -263,6 +263,7 @@ function walkNodes({
         radio,
         showPartialState,
         hierarchical,
+        dataChildrenField,
         _rv,
       })
 

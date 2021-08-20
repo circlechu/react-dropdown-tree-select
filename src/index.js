@@ -84,7 +84,7 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate, checkboxMode,expandOnCheck,dataChildrenField }) => {
+  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate, checkboxMode,expandOnCheck,dataTextField,dataChildrenField }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
@@ -93,6 +93,7 @@ class DropdownTreeSelect extends Component {
       searchPredicate,
       checkboxMode,
       expandOnCheck,
+      dataTextField,
       dataChildrenField
     })
     this.setState(prevState => {
