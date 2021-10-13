@@ -193,7 +193,7 @@ class DropdownTreeSelect extends Component {
     typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
-  onCheckboxChange = (id, checked, callback) => {
+  onCheckboxChange = (id, checked, callback) => {debugger
     const { mode, keepOpenOnSelect, clearSearchOnChange } = this.props
     const { currentFocus, searchModeOn } = this.state
     this.treeManager.setNodeCheckedState(id, checked)
@@ -228,7 +228,7 @@ class DropdownTreeSelect extends Component {
     this.setState(nextState, () => {
       callback && callback(tags)
     })
-    this.props.onChange(node, tags)
+    this.props.onChange(node, tags, searchModeOn)
   }
 
   onAction = (nodeId, action) => {

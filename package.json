@@ -113,6 +113,7 @@
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.0.1",
+    "webpack-dev-server": "^4.3.1",
     "webpack-serve": "^1.0.2",
     "why-did-you-update": "^0.1.1"
   },
